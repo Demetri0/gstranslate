@@ -83,7 +83,7 @@ function convert (body) {
     })
 
     header.langs.forEach(lang => {
-      const filename = `${__dirname}/${LOCALES_DIR}/${lang}.json`
+      const filename = `${LOCALES_DIR}/${lang}.json`
       console.log('Writing file: ' + filename)
       fs.writeFileSync(filename, JSON.stringify(result[lang], null, 2 * JSON_PRETTY))
     })
