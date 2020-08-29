@@ -96,10 +96,15 @@ The above table will generate two files with next content:
 ```
 
 ## Environment variables
+You may create `.env` file in your project directory (do not commit it to repository)
+and specify next variables in format (`KEY=VALUE`):
 - `TRANSLATION_KEY` - is a google spreadsheet key (**Required**)
 - `TRANSLATION_PAGES` - is comma-separated list of pages in google spreadsheet (**Required**)
 - `TRANSLATION_PRETTY` - makes output format pretty-printed json (**Default:** `false`)
 - `TRANSLATION_DIR` - directory for output translation files (**Default:** `./locales`)
+
+
+`TRANSLATION_KEY` - could be found in url string for example: `https://docs.google.com/spreadsheets/d/`**F9F6WG19ga2BdsDhKrEOXnf6le2_hJfrJK_0fDAHn2L**`/edit#gid=71625432`
 
 ## Useful conditional formatting for google spreadsheet
 We are using next conditional formatting rules in our spreadsheets
