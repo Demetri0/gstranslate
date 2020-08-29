@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Simple translation management tool for small and growing projects based on Google Spreadsheets",
   "main": "index.js",
+  "bin": {
+    "gstranslate": "./index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
