@@ -76,7 +76,7 @@ function convert (body) {
       }
 
       if (row[KEY_COLUMN_POS].includes('@PATH=')) {
-        mask = row[KEY_COLUMN_POS].replace('@PATH=', '') + '/'
+        mask = path.normalize(row[KEY_COLUMN_POS].replace('@PATH=', '') + '/')
         return
       }
 
@@ -86,9 +86,9 @@ function convert (body) {
     })
 
     header.langs.forEach(lang => {
-      const filename = `${LOCALES_DIR}/${lang}.json`
-      console.log('Writing file: ' + filename)
-      fs.writeFileSync(filename, JSON.stringify(result[lang], null, 2 * JSON_PRETTY))
+      const filepath = path.join(LOCALES_DIR, lang + '.json')
+      console.log('Writing file: ' + filepath)
+      fs.writeFileSync(filepath, JSON.stringify(result[lang], null, 2 * JSON_PRETTY))
     })
   })
 }
