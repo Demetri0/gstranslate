@@ -1,7 +1,9 @@
 # gstranslate
 Simple translation management tool for small and growing projects based on Google Spreadsheets
 
-## Purposes
+![Demo](./assets/demo.png)
+
+## Why?
 - Existing solutions is expansive and their free tier includes only up to 1000 translation keys.
 - Google Spreadsheet is comfortable enough to edit with many people in team, with great permission system,
   which allows to give permission for editors to edit only specified range.
@@ -98,6 +100,25 @@ The above table will generate two files with next content:
 - `TRANSLATION_PAGES` - is comma-separated list of pages in google spreadsheet (**Required**)
 - `TRANSLATION_PRETTY` - makes output format pretty-printed json (**Default:** `false`)
 - `TRANSLATION_DIR` - directory for output translation files (**Default:** `./locales`)
+
+## Useful conditional formatting for google spreadsheet
+We are using next conditional formatting rules in our spreadsheets
+### Comments
+- **Range:** `A:C`
+- **Formula:** `=LEFT($A1) = "#"`
+- **Color:** Light Green
+### @PATH
+- **Range:** `A:C`
+- **Formula:** `=LEFT($A1;6) = "@PATH="`
+- **Color:** Green
+### Duplicated translations in one row
+- **Range:** `A:C`
+- **Formula:** `=AND(LEFT($A1) <> ""; AND($B1 = $C1; $B1 <> ""))`
+- **Color:** Orange
+### Default translation missed
+- **Range:** `A:C`
+- **Formula:** `=AND(LEFT($A1) <> ""; AND($B1 = ""; $C1 <> ""))`
+- **Color:** Red
 
 ## Contribution
 If you would like to contribute - please do not make PR with breaking changes, and start with issue.
