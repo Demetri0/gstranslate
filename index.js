@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('dotenv').config()
 const http = require('https')
 const csv = require('csv')

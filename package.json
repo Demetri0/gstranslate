@@ -27,5 +27,9 @@
   "bugs": {
     "url": "https://github.com/Demetri0/gstranslate/issues"
   },
-  "homepage": "https://github.com/Demetri0/gstranslate#readme"
+  "homepage": "https://github.com/Demetri0/gstranslate#readme",
+  "dependencies": {
+    "csv": "^5.3.2",
+    "dotenv": "^8.2.0"
+  }
 }
