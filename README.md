@@ -15,7 +15,7 @@ Simple translation management tool for small and growing projects based on Googl
 - Configure permissions (spreadsheet must be accessible by direct link);
 - Creates your translations, you may use so many pages in one spreadsheet as you wish;
 - Configure environment variables for gstranslate;
-- When your translations is ready, you run `gstranslate` and it generates you `json` files
+- When your translations is ready, you run `npx gstranslate` and it generates you `json` files
   for each language for which you created column in google spreadsheet.
 
 ## Google Spreadsheet
