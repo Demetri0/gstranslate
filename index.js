@@ -43,7 +43,7 @@ const request = (url, delay) => {
   })
 }
 
-function docurl (key, pageName) {
+function docURL (key, pageName) {
   const GOOGLE_DOC = {
     BASE_URL: 'https://docs.google.com/spreadsheets/d/{{KEY}}/gviz/tq?tqx=out:{{FORMAT}}&sheet={{SHEET}}',
     FORMAT: 'csv'
@@ -109,7 +109,7 @@ function concat (sep) {
 
 /// START
 
-const pagesUrls = opt.pages.map(pageName => docurl(opt.key, pageName))
+const pagesUrls = opt.pages.map(pageName => docURL(opt.key, pageName))
 const pagesRequests = pagesUrls.map((url, idx) => request(url, 50 * idx))
 
 console.log('Getting pages:', opt.pages.join(','))
