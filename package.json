@@ -1,0 +1,28 @@
+{
+  "name": "gstranslate",
+  "version": "1.0.0",
+  "description": "Simple translation management tool for small and growing projects based on Google Spreadsheets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Demetri0/gstranslate.git"
+  },
+  "keywords": [
+    "gstranslate",
+    "spreadsheets",
+    "google",
+    "l10n",
+    "i18n",
+    "translation",
+    "locale"
+  ],
+  "author": "Demetri0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Demetri0/gstranslate/issues"
+  },
+  "homepage": "https://github.com/Demetri0/gstranslate#readme"
+}
