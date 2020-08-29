@@ -18,7 +18,8 @@ const opt = {
       process.cwd(),
       (process.env.TRANSLATION_DIR || './locales')
     )
-  )
+  ),
+  'delay': 50
 }
 
 if (opt.pages.length <= 0) {
@@ -110,7 +111,7 @@ function concat (sep) {
 /// START
 
 const pagesUrls = opt.pages.map(pageName => docURL(opt.key, pageName))
-const pagesRequests = pagesUrls.map((url, idx) => request(url, 50 * idx))
+const pagesRequests = pagesUrls.map((url, idx) => request(url, opt.delay * idx))
 
 console.log('Getting pages:', opt.pages.join(','))
 
