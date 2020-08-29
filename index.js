@@ -1,7 +1,10 @@
+#!/usr/bin/env node
+
 require('dotenv').config()
 const http = require('https')
 const csv = require('csv')
 const fs = require('fs')
+const path = require('path')
 
 const GOOGLE_DOC = {
   BASE_URL: 'https://docs.google.com/spreadsheets/d/{{KEY}}/gviz/tq?tqx=out:{{FORMAT}}&sheet={{SHEET}}',
@@ -13,7 +16,7 @@ const DEFAULT_COLUMN_POS = 1 // Columnt with default language
 
 const JSON_PRETTY = parseBool(process.env.TRANSLATION_PRETTY || '') ? 1 : 0
 const PAGES = (process.env.TRANSLATION_PAGES || '').split(/\s*,\s*/).filter(Boolean)
-const LOCALES_DIR = process.env.TRANSLATION_DIR || '../locales'
+const LOCALES_DIR = path.join(process.cwd(), (process.env.TRANSLATION_DIR || './locales'))
 
 if (PAGES.length <= 0) {
   console.error('Pages is not specified. use env variable TRANSLATION_PAGES to specify list of pages separeted by comma')
@@ -47,7 +50,7 @@ function docurl (googledoc, pagename) {
 function convert (body) {
   csv.parse(body, function (err, data) {
     if (err) {
-      return err
+      throw err
     }
     const HEADER_ROW_POS = 0
     const header = {
@@ -64,13 +67,11 @@ function convert (body) {
     data.forEach(function (row) {
       if (/^\s*#.*/.test(row[KEY_COLUMN_POS])) {
         mask = ''
-
         return
       }
 
       if (row[KEY_COLUMN_POS].includes('@PATH=')) {
         mask = row[KEY_COLUMN_POS].replace('@PATH=', '') + '/'
-
         return
       }
 
@@ -80,7 +81,7 @@ function convert (body) {
     })
 
     header.langs.forEach(lang => {
-      const filename = `${__dirname}/${LOCALES_DIR}/${lang}.json`
+      const filename = `${LOCALES_DIR}/${lang}.json`
       console.log('Writing file: ' + filename)
       fs.writeFileSync(filename, JSON.stringify(result[lang], null, 2 * JSON_PRETTY))
     })
