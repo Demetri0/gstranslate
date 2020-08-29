@@ -12,11 +12,16 @@ const GOOGLE_DOC = {
   FORMAT: 'csv'
 }
 const KEY_COLUMN_POS = 0
-const DEFAULT_COLUMN_POS = 1 // Columnt with default language
+const DEFAULT_COLUMN_POS = 1 // Column with default language
 
 const JSON_PRETTY = parseBool(process.env.TRANSLATION_PRETTY || '') ? 1 : 0
-const PAGES = (process.env.TRANSLATION_PAGES || '').split(/\s*,\s*/).filter(Boolean)
-const LOCALES_DIR = path.join(process.cwd(), (process.env.TRANSLATION_DIR || './locales'))
+const PAGES = (process.env.TRANSLATION_PAGES || '').split(/\s*,\s*/).filter(NotEmpty)
+const LOCALES_DIR = path.normalize(
+  path.join(
+    process.cwd(),
+    (process.env.TRANSLATION_DIR || './locales')
+  )
+)
 
 if (PAGES.length <= 0) {
   console.error('Pages is not specified. use env variable TRANSLATION_PAGES to specify list of pages separeted by comma')
@@ -54,7 +59,7 @@ function convert (body) {
     }
     const HEADER_ROW_POS = 0
     const header = {
-      langs: data[HEADER_ROW_POS].slice(KEY_COLUMN_POS + 1).filter(item => !!item)
+      langs: data[HEADER_ROW_POS].slice(KEY_COLUMN_POS + 1).filter(NotEmpty)
     }
 
     const result = {}
@@ -76,7 +81,7 @@ function convert (body) {
       }
 
       header.langs.forEach((lang, idx) => {
-        result[lang][mask + row[0]] = row[DEFAULT_COLUMN_POS + idx] || row[DEFAULT_COLUMN_POS]
+        result[lang][mask + row[KEY_COLUMN_POS]] = row[KEY_COLUMN_POS + idx + 1] || row[DEFAULT_COLUMN_POS]
       })
     })
 
@@ -90,6 +95,9 @@ function convert (body) {
 
 function parseBool (str) {
   return ['y', 't', 'on', 'yes', 'true', '1'].indexOf(str.toLowerCase()) !== -1
+}
+function NotEmpty (arg) {
+  return !!arg
 }
 
 /// START
