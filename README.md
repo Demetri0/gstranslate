@@ -60,7 +60,7 @@ feel free to create an issue.
 ### Example of table for google spreadsheet
 The next table demonstrates how translations look like in google spreadsheet
 
- # KEY | en | ru
+ \# KEY | en | ru
 -----|----|----
 some.kind.of.key | Default en translation | Русский перевод
 some.another.key | The same translation for en and ru |
