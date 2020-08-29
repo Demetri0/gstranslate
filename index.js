@@ -6,30 +6,28 @@ const csv = require('csv')
 const fs = require('fs')
 const path = require('path')
 
-const GOOGLE_DOC = {
-  BASE_URL: 'https://docs.google.com/spreadsheets/d/{{KEY}}/gviz/tq?tqx=out:{{FORMAT}}&sheet={{SHEET}}',
-  KEY: process.env.TRANSLATION_KEY,
-  FORMAT: 'csv'
-}
 const KEY_COLUMN_POS = 0
 const DEFAULT_COLUMN_POS = 1 // Column with default language
 
-const JSON_PRETTY = parseBool(process.env.TRANSLATION_PRETTY || '') ? 1 : 0
-const PAGES = (process.env.TRANSLATION_PAGES || '').split(/\s*,\s*/).filter(NotEmpty)
-const LOCALES_DIR = path.normalize(
-  path.join(
-    process.cwd(),
-    (process.env.TRANSLATION_DIR || './locales')
+const opt = {
+  'key': process.env.TRANSLATION_KEY,
+  'pages': (process.env.TRANSLATION_PAGES || '').split(/\s*,\s*/).filter(NotEmpty),
+  'pretty-print': parseBool(process.env.TRANSLATION_PRETTY || '') ? 1 : 0,
+  'out-dir': path.normalize(
+    path.join(
+      process.cwd(),
+      (process.env.TRANSLATION_DIR || './locales')
+    )
   )
-)
-
-if (PAGES.length <= 0) {
-  console.error('Pages is not specified. use env variable TRANSLATION_PAGES to specify list of pages separeted by comma')
-  return process.exit(1)
 }
-if (!GOOGLE_DOC.KEY) {
-  console.error('TRANSLATION_KEY is not specified', GOOGLE_DOC.KEY)
-  return process.exit(2)
+
+if (opt.pages.length <= 0) {
+  console.error('Pages is not specified. use env variable TRANSLATION_PAGES to specify list of pages separated by comma')
+  process.exit(1)
+}
+if (!opt.key) {
+  console.error('TRANSLATION_KEY is not specified', opt.key)
+  process.exit(2)
 }
 
 const request = (url, delay) => {
@@ -45,11 +43,15 @@ const request = (url, delay) => {
   })
 }
 
-function docurl (googledoc, pagename) {
-  return googledoc.BASE_URL
-    .replace('{{KEY}}', googledoc.KEY)
-    .replace('{{FORMAT}}', googledoc.FORMAT)
-    .replace('{{SHEET}}', pagename)
+function docurl (key, pageName) {
+  const GOOGLE_DOC = {
+    BASE_URL: 'https://docs.google.com/spreadsheets/d/{{KEY}}/gviz/tq?tqx=out:{{FORMAT}}&sheet={{SHEET}}',
+    FORMAT: 'csv'
+  }
+  return GOOGLE_DOC.BASE_URL
+    .replace('{{KEY}}', key)
+    .replace('{{FORMAT}}', GOOGLE_DOC.FORMAT)
+    .replace('{{SHEET}}', pageName)
 }
 
 function convert (body) {
@@ -86,9 +88,9 @@ function convert (body) {
     })
 
     header.langs.forEach(lang => {
-      const filepath = path.join(LOCALES_DIR, lang + '.json')
+      const filepath = path.join(opt['out-dir'], lang + '.json')
       console.log('Writing file: ' + filepath)
-      fs.writeFileSync(filepath, JSON.stringify(result[lang], null, 2 * JSON_PRETTY))
+      fs.writeFileSync(filepath, JSON.stringify(result[lang], null, 2 * opt['pretty-print']))
     })
   })
 }
@@ -107,10 +109,10 @@ function concat (sep) {
 
 /// START
 
-const pagesUrls = PAGES.map(pagename => docurl(GOOGLE_DOC, pagename))
+const pagesUrls = opt.pages.map(pageName => docurl(opt.key, pageName))
 const pagesRequests = pagesUrls.map((url, idx) => request(url, 50 * idx))
 
-console.log('Getting pages:', PAGES.join(','))
+console.log('Getting pages:', opt.pages.join(','))
 
 Promise.all(pagesRequests)
   .then(function (pagesData) {
