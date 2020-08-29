@@ -99,6 +99,11 @@ function parseBool (str) {
 function NotEmpty (arg) {
   return !!arg
 }
+function concat (sep) {
+  return function (s1, s2) {
+    return s1 + s2 + sep
+  }
+}
 
 /// START
 
@@ -109,7 +114,7 @@ console.log('Getting pages:', PAGES.join(','))
 
 Promise.all(pagesRequests)
   .then(function (pagesData) {
-    return pagesData.reduce((acc, cur) => acc + cur + '\n', '')
+    return pagesData.reduce(concat('\n'), '')
   })
   .then(body => {
     convert(body)
