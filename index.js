@@ -104,15 +104,8 @@ const request = (url, delay) => {
   })
 }
 
-function docURL (key, pageName) {
-  const GOOGLE_DOC = {
-    BASE_URL: 'https://docs.google.com/spreadsheets/d/{{KEY}}/gviz/tq?tqx=out:{{FORMAT}}&sheet={{SHEET}}',
-    FORMAT: 'csv'
-  }
-  return GOOGLE_DOC.BASE_URL
-    .replace('{{KEY}}', key)
-    .replace('{{FORMAT}}', GOOGLE_DOC.FORMAT)
-    .replace('{{SHEET}}', pageName)
+function docURL (key, page) {
+  return `https://docs.google.com/spreadsheets/d/${key}/gviz/tq?tqx=out:csv&sheet=${page}`
 }
 
 function convert (body) {
