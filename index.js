@@ -7,10 +7,6 @@ const fs = require('fs')
 const path = require('path')
 const { getopt } = require('stdio')
 
-const KEY_COLUMN_POS = 0
-const DEFAULT_COLUMN_POS = 1 // Column with default language
-const EMPTY_KEYWORD = '<EMPTY>'
-
 const opt = {
   'key': process.env.GSTRANSLATE_KEY || process.env.TRANSLATION_KEY,
   'pages': (process.env.TRANSLATION_PAGES || '').split(/\s*,\s*/).filter(NotEmpty),
@@ -125,6 +121,10 @@ function convert (body) {
       throw err
     }
     const HEADER_ROW_POS = 0
+    const KEY_COLUMN_POS = 0
+    const EMPTY_KEYWORD = '<EMPTY>'
+    const DEFAULT_COLUMN_POS = 1 // Column with default language
+
     const header = {
       langs: data[HEADER_ROW_POS].slice(KEY_COLUMN_POS + 1).filter(NotEmpty)
     }
