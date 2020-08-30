@@ -30,6 +30,7 @@
   "homepage": "https://github.com/Demetri0/gstranslate#readme",
   "dependencies": {
     "csv": "^5.3.2",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "stdio": "^2.1.1"
   }
 }
