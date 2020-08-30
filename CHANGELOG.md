@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
-## [1.0.8] - 2020-08-30
+## [1.1.2] - 2020-08-30
 ### Added
 - Add CLI arguments (rewrites env variables if passed for migration period)
   - `--pretty-print` for pretty print output json

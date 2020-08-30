@@ -86,11 +86,11 @@ if (process.env.TRANSLATION_DIR) {
 
 // TODO: Remove below checks in case get rid of env in version 2
 if (opt.pages.length <= 0) {
-  console.error('Pages is not specified. use env variable TRANSLATION_PAGES to specify list of pages separated by comma')
+  console.error('Pages is not specified. use --pages|-p to specify list of pages')
   process.exit(1)
 }
 if (!opt.key) {
-  console.error('TRANSLATION_KEY is not specified', opt.key)
+  console.error('\x1b[1mGSTRANSLATE_KEY\x1b[0m or \x1b[1mTRANSLATION_KEY\x1b[0m is not specified', opt.key)
   process.exit(2)
 }
 
