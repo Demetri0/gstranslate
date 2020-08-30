@@ -12,6 +12,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Security
 
+## [1.0.8] - 2020-08-30
+### Added
+- Add CLI arguments (rewrites env variables if passed for migration period)
+  - `--pretty-print` for pretty print output json
+  - `--pages` for pass pages list
+  - `--out-dir` for specify output directory
+  - `--key` for pass google spreadsheet pages
+  - `--delay` for specify delay between requests to pages
+- Add new env variable `GSTRANSLATE_KEY`
+### Deprecated
+  - Deprecated env variable `TRANSLATION_KEY` use `GSTRANSLATE_KEY` or `--key` instead
+  - Deprecated env variable `TRANSLATION_PAGES` use `--pages|-p` instead
+  - Deprecated env variable `TRANSLATION_PRETTY` use `--pretty-print` instead
+  - Deprecated env variable `TRANSLATION_DIR` use `--out-dir` instead
+
 ## [1.0.5] - 2020-08-29
 ### Fixed
 - Fix (#4) Header linne should not be presend in final translations
