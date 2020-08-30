@@ -7,16 +7,16 @@ Simple translation management tool for small and growing projects based on Googl
 - Existing solutions is expansive and their free tier includes only up to 1000 translation keys.
 - Google Spreadsheet is comfortable enough to edit with many people in team, with great permission system,
   which allows to give permission for editors to edit only specified range.
-  This is good place to have a discussion about translations and place comments.
+  This is good place to have a discussion about translations and leave remarks.
   And it is free :p.
 
 ## How it works
-- You creates a Google Spreadsheets;
-- Configure permissions (spreadsheet must be accessible by direct link);
-- Creates your translations, you may use so many pages in one spreadsheet as you wish;
-- Configure environment variables for gstranslate;
-- When your translations is ready, you run `npx gstranslate` and it generates you `json` files
-  for each language for which you created column in google spreadsheet.
+1. You creates a Google Spreadsheets;
+2. Configure permissions (spreadsheet must be accessible by direct link);
+3. Writes your translations in google spreadsheet using our format;
+  - You may use so many pages in one spreadsheet as you wish;
+4. Configure environment variables for gstranslate;
+5. When your translations is ready, you run `npx gstranslate` and it generates you `json` files for each language for which you created column in google spreadsheet.
 
 ## Usage
 Recommended way to use **gstranslate** is to add command to your `package.json/scripts`
@@ -25,18 +25,23 @@ Recommended way to use **gstranslate** is to add command to your `package.json/s
 ### Environment
 You need to add environment variable `GSTRANSLATE_KEY` to your environment.
 You may use `.env` file for example - gstranslate loads it while starts.
+*Do not commit .env to repository*
 `GSTRANSLATE_KEY` - could be found in url string for example: `https://docs.google.com/spreadsheets/d/`**F9F6WG19ga2BdsDhKrEOXnf6le2_hJfrJK_0fDAHn2L**`/edit#gid=71625432`
 
 ### CLI options
 - `--pages|-p` - allow to pass pages list (**Required**)
 - `--key` - allow to pass google spreadsheet key, alternative for `GSTRANSLATE_KEY`.
-  *Do not commit key to repository* (**Required**)
+  (**Required**) *Do not commit key to repository*
 - `--out-dir|-o` - allow to change output directory (**Default**: `./locals`)
 - `--pretty-print` - use for pretty print output json (**Default**: `false`)
 - `--delay` - sets delay between requests to pages in milliseconds (**Default**: `50`)
 
 ## Google Spreadsheet
 Google spread sheet should have defined format
+
+### Pagination
+Maintain all translations on one page may be not so good idea - we recommend you
+to group your translations in different pages. f.e. General, Components, Pages, etc...
 
 ### Header Line
 Header line - is the first line on each page.
@@ -46,19 +51,23 @@ Header line - is the first line on each page.
 
 ### Key column
 The first column contains keys which could be used in your code.
-Keys could be names as you wish, but the recommended way to name it is dot-separated
-for example:
+Please name Key column starting with `#` symbol f.e. `# KEY`, that soles some issues.
+
+Your translation keys could be names as you wish,
+but we recommend to give it dot-separated name.
+For example:
 - `MyComponent.myField.title`
 - `MyComponent.myField.placeholder`
 
 ### Language columns
-The next to Key column should be one or more language columns.
+The next to **Key** column should be one or more **language columns**.
 First line of each column should contains a language code
-which will be used as file name for generated translations.
-You could use something like `en`,`sv` or `en_US`, `sv_FI` or anything another format you would like to use.
+which will be used as file name for generated translations (ex: `en.json`).
+You could use something like `en`,`sv` or `en_US`, `sv_FI`
+or any other format you wish.
 
-**default language** - is one of language columns (by default the first one)
-which will be used if translation for next columns is not specified.
+**default language column** - is language column next to **Key** column.
+Content of this cell will be used if translation in one of next columns is not specified.
 That helps to avoid duplication of translations in cases
 when translation for all languages should be the same.
 
@@ -72,7 +81,11 @@ Each line(row) starts with `#` symbol will be ignored
 `@PATH=` is special directive allow to make keys shorter.
 Allow to avoid duplication, and make less changes in case you need to change keys.
 
+When you specify `@PATH=pages/index` keys of next rows would be concatenated with
+this PATH until to next comment line.
+
 We are using the same directive in `webpack` which translates to path to component.
+
 For now it is the only one directive. If you have another ideas of using them please
 feel free to create an issue.
 
