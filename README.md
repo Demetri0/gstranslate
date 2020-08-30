@@ -25,8 +25,9 @@ Recommended way to use **gstranslate** is to add command to your `package.json/s
 ### Environment
 You need to add environment variable `GSTRANSLATE_KEY` to your environment.
 You may use `.env` file for example - gstranslate loads it while starts.
-*Do not commit .env to repository*
-`GSTRANSLATE_KEY` - could be found in url string for example: `https://docs.google.com/spreadsheets/d/`**F9F6WG19ga2BdsDhKrEOXnf6le2_hJfrJK_0fDAHn2L**`/edit#gid=71625432`
+(*Do not commit .env to repository*)
+
+- `GSTRANSLATE_KEY` - could be found in url string for example: `https://docs.google.com/spreadsheets/d/`**F9F6WG19ga2BdsDhKrEOXnf6le2_hJfrJK_0fDAHn2L**`/edit#gid=71625432`
 
 ### CLI options
 - `--pages|-p` - allow to pass pages list (**Required**)
