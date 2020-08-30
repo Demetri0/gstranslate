@@ -9,6 +9,7 @@ const { getopt } = require('stdio')
 
 const KEY_COLUMN_POS = 0
 const DEFAULT_COLUMN_POS = 1 // Column with default language
+const EMPTY_KEYWORD = '<EMPTY>'
 
 const opt = {
   'key': process.env.GSTRANSLATE_KEY || process.env.TRANSLATION_KEY,
@@ -147,7 +148,11 @@ function convert (body) {
       }
 
       header.langs.forEach((lang, idx) => {
-        result[lang][mask + row[KEY_COLUMN_POS]] = row[KEY_COLUMN_POS + idx + 1] || row[DEFAULT_COLUMN_POS]
+        let value = row[KEY_COLUMN_POS + idx + 1] || row[DEFAULT_COLUMN_POS]
+        if (value === EMPTY_KEYWORD) {
+          value = ''
+        }
+        result[lang][mask + row[KEY_COLUMN_POS]] = value
       })
     })
 
