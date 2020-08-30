@@ -18,6 +18,23 @@ Simple translation management tool for small and growing projects based on Googl
 - When your translations is ready, you run `npx gstranslate` and it generates you `json` files
   for each language for which you created column in google spreadsheet.
 
+## Usage
+Recommended way to use **gstranslate** is to add command to your `package.json/scripts`
+- `npx gstranslate -p Pages -p Components -p Errors`
+
+### Environment
+You need to add environment variable `GSTRANSLATE_KEY` to your environment.
+You may use `.env` file for example - gstranslate loads it while starts.
+`GSTRANSLATE_KEY` - could be found in url string for example: `https://docs.google.com/spreadsheets/d/`**F9F6WG19ga2BdsDhKrEOXnf6le2_hJfrJK_0fDAHn2L**`/edit#gid=71625432`
+
+### CLI options
+- `--pages|-p` - allow to pass pages list (**Required**)
+- `--key` - allow to pass google spreadsheet key, alternative for `GSTRANSLATE_KEY`.
+  *Do not commit key to repository* (**Required**)
+- `--out-dir|-o` - allow to change output directory (**Default**: `./locals`)
+- `--pretty-print` - use for pretty print output json (**Default**: `false`)
+- `--delay` - sets delay between requests to pages in milliseconds (**Default**: `50`)
+
 ## Google Spreadsheet
 Google spread sheet should have defined format
 
@@ -95,16 +112,13 @@ The above table will generate two files with next content:
 }
 ```
 
-## Environment variables
+## Environment variables (DEPRECATED)
 You may create `.env` file in your project directory (do not commit it to repository)
 and specify next variables in format (`KEY=VALUE`):
-- `TRANSLATION_KEY` - is a google spreadsheet key (**Required**)
-- `TRANSLATION_PAGES` - is comma-separated list of pages in google spreadsheet (**Required**)
-- `TRANSLATION_PRETTY` - makes output format pretty-printed json (**Default:** `false`)
-- `TRANSLATION_DIR` - directory for output translation files (**Default:** `./locales`)
-
-
-`TRANSLATION_KEY` - could be found in url string for example: `https://docs.google.com/spreadsheets/d/`**F9F6WG19ga2BdsDhKrEOXnf6le2_hJfrJK_0fDAHn2L**`/edit#gid=71625432`
+- `TRANSLATION_KEY` - is a google spreadsheet key (**Required**) **[Deprecated]**
+- `TRANSLATION_PAGES` - is comma-separated list of pages in google spreadsheet (**Required**) **[Deprecated]**
+- `TRANSLATION_PRETTY` - makes output format pretty-printed json (**Default:** `false`) **[Deprecated]**
+- `TRANSLATION_DIR` - directory for output translation files (**Default:** `./locales`) **[Deprecated]**
 
 ## Useful conditional formatting for google spreadsheet
 We are using next conditional formatting rules in our spreadsheets
