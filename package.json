@@ -1,6 +1,6 @@
 {
   "name": "gstranslate",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Simple translation management tool for small and growing projects based on Google Spreadsheets",
   "main": "index.js",
   "bin": {
