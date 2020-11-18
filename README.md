@@ -1,5 +1,5 @@
 # gstranslate
-Simple translation management tool for small and growing projects based on Google Spreadsheets
+Manage your translation in google spreadsheet
 
 ![Demo](./assets/demo.png)
 
@@ -10,13 +10,10 @@ Simple translation management tool for small and growing projects based on Googl
   This is good place to have a discussion about translations and leave remarks.
   And it is free :p.
 
-## How it works
+## Get started
 1. You creates a Google Spreadsheets;
-2. Configure permissions (spreadsheet must be accessible by direct link);
-3. Writes your translations in google spreadsheet using our format;
-  - You may use so many pages in one spreadsheet as you wish;
-4. Configure environment variables for gstranslate;
-5. When your translations is ready, you run `npx gstranslate` and it generates you `json` files for each language for which you created column in google spreadsheet.
+2. Make your spreadsheet to be accessible for read by direct link;
+3. run `npx gstranslate -p PageName --key ...` and it generates you `json` files per each language column in your google spreadsheet.
 
 ## Usage
 Recommended way to use **gstranslate** is to add command to your `package.json/scripts`
@@ -54,7 +51,7 @@ Header line - is the first line on each page.
 The first column contains keys which could be used in your code.
 Please name Key column starting with `#` symbol f.e. `# KEY`, that soles some issues.
 
-Your translation keys could be names as you wish,
+Your translation keys could be named as you wish,
 but we recommend to give it dot-separated name.
 For example:
 - `MyComponent.myField.title`
